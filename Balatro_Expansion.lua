@@ -1,4 +1,4 @@
-SampleJimbos = {}
+BalatroExpansion = {}
 
 assert(SMODS.load_file("globals.lua"))()
 
