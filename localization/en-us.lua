@@ -1,7 +1,7 @@
 return {
     descriptions = {
         Joker = {
-            j_sj_lucky_day = {
+            j_be_lucky_day = {
                 name = "Lucky Day",
                 text = {
                     {
@@ -11,7 +11,7 @@ return {
                 },
             },
 
-            j_sj_wild_west = {
+            j_be_wild_west = {
                 name = "The Wild West",
                 text = {
                     {
