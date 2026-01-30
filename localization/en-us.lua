@@ -23,6 +23,27 @@ return {
                 },
             },
 
+            j_be_domino = {
+                name = "Domino Effect",
+                text = {
+                    {
+                        "Each played {C:enhanced}Stone Card{}",
+                        "retriggers when scored",
+                    }
+                },
+            },
+
+            j_be_jackpot = {
+                name = "Jackpot",
+                text = {
+                    {
+                        "{C:chips}+#1#{} Chips if played",
+                        "hand contains",
+                        "at least three {C:attention}7s{}",
+                    }
+                },
+            },
+
         }
     },
     misc = {
