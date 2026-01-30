@@ -34,8 +34,8 @@ SMODS.Joker{
     key = "lucky_day",
     config = { extra = { x_mult = 2 } },
     pos = { x = 0, y = 0 },
-    rarity = 1,
-    cost = 1,
+    rarity = 3,
+    cost = 8,
     blueprint_compat = true,
     eternal_compat = false,
     unlocked = true,
@@ -51,7 +51,7 @@ SMODS.Joker{
                 if context.other_card:is_suit("Clubs") then
                     return {
                         x_mult = card.ability.extra.x_mult,
-                        card = context.other_card
+                        card = card
                     }
                 end
             end
@@ -74,8 +74,8 @@ SMODS.Joker{
     key = "wild_west",
     config = { extra = {max = 30, min = 10} },
     pos = { x = 0, y = 0 },
-    rarity = 1,
-    cost = 1,
+    rarity = 2,
+    cost = 7,
     blueprint_compat = true,
     eternal_compat = false,
     unlocked = true,
@@ -101,5 +101,92 @@ SMODS.Joker{
 
     loc_vars = function(self, info_queue, card)
         return { vars = { temp_Mult }, key = self.key }
+    end
+}
+
+SMODS.Atlas({
+    key = "domino",
+    path = "j_wild_west.png",
+    px = 71,
+    py = 95
+})
+
+SMODS.Joker{
+    key = "domino",
+    config = { repetitions = 1 },
+    pos = { x = 0, y = 0 },
+    rarity = 2,
+    cost = 6,
+    blueprint_compat = true,
+    eternal_compat = false,
+    unlocked = true,
+    discovered = true,
+    effect = "",
+    atlas = 'domino',
+    soul_pos = nil,
+    set = "Joker",
+
+    calculate = function(self, card, context)
+        if context.repetition then
+            if context.cardarea == G.play then 
+                if context.other_card.ability.name == 'Stone Card' then
+                    return {
+                        message = localize('k_again_ex'),
+                        repetitions = card.ability.repetitions,
+                        card = card
+                    }
+                end
+            end
+        end
+    end,
+
+    loc_vars = function(self, info_queue, card)
+        return { }
+    end
+}
+
+SMODS.Atlas({
+    key = "jackpot",
+    path = "j_wild_west.png",
+    px = 71,
+    py = 95
+})
+
+SMODS.Joker{
+    key = "jackpot",
+    config = { extra = { chips = 777 } },
+    pos = { x = 0, y = 0 },
+    rarity = 2,
+    cost = 5,
+    blueprint_compat = true,
+    eternal_compat = false,
+    unlocked = true,
+    discovered = true,
+    effect = "",
+    atlas = 'jackpot',
+    soul_pos = nil,
+    set = "Joker",
+
+    calculate = function(self, card, context)
+        if not context.joker_main or not context.scoring_hand then return end
+
+        local sevens = 0
+        for _, c in ipairs(context.scoring_hand) do
+            if c:get_id() == 7 then
+                sevens = sevens + 1
+            end
+        end
+
+        if sevens >= 3 then
+            return {
+                message = "Jackpot",
+                chips = card.ability.extra.chips,
+                card = card
+            }
+        end
+    end,
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chips }, key = self.key }
     end
 }
